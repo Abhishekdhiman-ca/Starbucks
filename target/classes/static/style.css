@@ -1,0 +1,186 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    background-color: #f8f9fa !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-nav .nav-link {
+    color: #555;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #185c37;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.welcome-text {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: fadeIn 2s ease-in-out, textBounce 2s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.starbucks-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px; /* Adjust size as needed */
+    margin-right: 10px;
+    animation: iconBounce 2s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes iconBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes textBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Carousel styles */
+.carousel-inner {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner img {
+    width: 800px;
+    height: auto; /* Maintain the aspect ratio */
+    max-height: 517px; /* Set maximum height as needed */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%);
+}
+
+footer {
+    background: black;
+    padding: 40px 0;
+}
+
+footer .text-uppercase {
+    font-weight: bold;
+}
+
+footer .text-dark:hover {
+    color: #007bff !important;
+    text-decoration: none;
+}
+
+footer .bg-dark {
+    background-color: #343a40 !important;
+}
+
+footer .text-white {
+    color: #fff !important;
+}
+
+/* Logo Area */
+.logo {}
+
+.footer-area {
+    background: black;
+}
+
+.footer-area h5 {
+    color: white !important;
+}
+
+.footer-area p {
+    color: white !important;
+}
+
+.footer-area a {
+    color: white !important;
+}
+
+.hero-left-text {
+    margin-top: 100px;
+}
+
+.card-img-top {
+    height: 250px;
+    padding: 20px;
+}
+
+.card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cart-imge {
+    width: 100px;
+    height: 100px;
+}
+
+/* Custom Buttons */
+.custom-theme-button {
+    background-color: #185c37;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    padding: 10px 50px;
+}
+
+.custom-theme-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.custom-common-theme-button {
+    background-color: #185c37;
+    color: white;
+    border: none;
+    border-radius: 0px;
+}
+
+.custom-common-theme-button:hover {
+    background-color: black;
+    color: white;
+}

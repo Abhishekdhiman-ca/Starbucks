@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+
+    <!-- Latest Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 17px;
+          padding: 8px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        .row {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0 -16px;
+        }
+
+        .col-25 {
+          flex: 25%;
+        }
+
+        .col-50 {
+          flex: 50%;
+        }
+
+        .col-75 {
+          flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+          padding: 0 16px;
+        }
+
+        .container {
+          background-color: #f2f2f2;
+          padding: 20px;
+          border: 1px solid lightgrey;
+          border-radius: 3px;
+          margin-top: 20px;
+        }
+
+        input[type=text] {
+          width: 100%;
+          margin-bottom: 20px;
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+        }
+
+        label {
+          margin-bottom: 10px;
+          display: block;
+        }
+
+        .icon-container {
+          margin-bottom: 20px;
+          padding: 7px 0;
+          font-size: 24px;
+        }
+
+.custom-common-theme-button {
+    background-color: #185c37;
+    color: white;
+            padding: 12px;
+          margin: 10px 0;
+                width: 100%;
+    border: none;
+    border-radius: 0px;
+              cursor: pointer;
+          font-size: 17px;
+}
+
+.custom-common-theme-button:hover {
+    background-color: black;
+    color: white;
+}
+
+        a {
+          color: #2196F3;
+        }
+
+        hr {
+          border: 1px solid lightgrey;
+        }
+
+        span.price {
+          float: right;
+          color: grey;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 800px) {
+          .row {
+            flex-direction: column-reverse;
+          }
+          .col-25 {
+            margin-bottom: 20px;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="text" id="email" name="email" placeholder="john@example.com">
+            <label for="adr"><i class="fa fa-address-card"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" name="city" placeholder="New York">
+
+            <div class="row">
+                <div class="col-50">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" placeholder="NY">
+                </div>
+                <div class="col-50">
+                    <label for="zip">Zip</label>
+                    <input type="text" id="zip" name="zip" placeholder="10001">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-50">
+            <h3>Payment</h3>
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+            <div class="row">
+                <div class="col-50">
+                    <label for="expyear">Exp Year</label>
+                    <input type="text" id="expyear" name="expyear" placeholder="2018">
+                </div>
+                <div class="col-50">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="352">
+                </div>
+            </div>
+        </div>
+    </div>
+    <label>
+        <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+    </label>
+    <form th:action="@{/purchase}" method="post">
+        <button type="submit" class="custom-common-theme-button btn">Purchase</button>
+
+    </form>
+</div>
+
+<!-- Purchase Success Modal -->
+<div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseModalLabel">Purchase Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your purchase of <span th:text="${total}"></span> is successful!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="redirectToHome()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    function redirectToHome() {
+        window.location.href = '/';
+    }
+</script>
+</body>
+</html>
