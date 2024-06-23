@@ -13,10 +13,24 @@ body {
 
 .navbar-nav .nav-link {
     color: #555;
+    position: relative;
+    padding-bottom: 5px; /* Adjust spacing as needed */
 }
 
-.navbar-nav .nav-link:hover {
-    color: #007bff;
+.navbar-nav .nav-link::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px; /* Adjust height of the bar */
+    background: #185c37; /* Green color for the hover bar */
+    transition: width 0.3s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.navbar-nav .nav-link:hover::before {
+    width: 100%;
 }
 
 /* Top Bar */
@@ -109,7 +123,7 @@ footer .text-uppercase {
 }
 
 footer .text-dark:hover {
-    color: #007bff !important;
+    color: #185c37 !important; /* Change hover color to green */
     text-decoration: none;
 }
 
@@ -138,6 +152,10 @@ footer .text-white {
 
 .footer-area a {
     color: white !important;
+}
+
+.footer-area a:hover {
+    color: #185c37 !important; /* Change hover color to green */
 }
 
 .hero-left-text {
