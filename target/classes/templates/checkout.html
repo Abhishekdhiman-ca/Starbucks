@@ -171,28 +171,9 @@
     <label>
         <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
     </label>
-    <form th:action="@{/purchase}" method="post">
+    <form th:action="@{/cart/purchase}" method="post">
         <button type="submit" class="custom-common-theme-button btn">Purchase</button>
-
     </form>
-</div>
-
-<!-- Purchase Success Modal -->
-<div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="purchaseModalLabel">Purchase Successful</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Your purchase of <span th:text="${total}"></span> is successful!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="redirectToHome()">Close</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Latest Bootstrap JavaScript -->

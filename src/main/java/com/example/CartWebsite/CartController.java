@@ -4,34 +4,27 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
     private CartItemRepository cartItemRepository;
 
-    @GetMapping("/")
-    public String home(HttpSession session, Model model) {
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = cartItemRepository.findAll();
-            session.setAttribute("cartItems", cartItems);
-        }
-        model.addAttribute("cartItems", cartItems);
-        model.addAttribute("cartQty", cartItems.size());
-        model.addAttribute("total", calculateTotal(cartItems));
-        return "home";
-    }
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
     @PostMapping("/add")
     public String addToCart(@RequestParam String item, @RequestParam String image,
@@ -73,6 +66,14 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    private double calculateTotal(List<CartItem> cartItems) {
+        double total = 0;
+        for (CartItem item : cartItems) {
+            total += item.getTotalAmount();
+        }
+        return total;
+    }
+
     @PostMapping("/purchase")
     public String purchase(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -88,16 +89,34 @@ public class CartController {
 
         double totalAmount = calculateTotal(cartItems);
 
+        Order order = new Order();
+        order.setUserId(user.getId());
+        order.setDate(LocalDateTime.now());
+        order.setTotalAmount(totalAmount);
+        order.setStatus("Pending");
+        order.setOrderTime(LocalDateTime.now());
+        orderRepository.save(order);
+
+        for (CartItem cartItem : cartItems) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderId(order.getId());
+            orderDetail.setItem(cartItem.getName());
+            orderDetail.setImage(cartItem.getImage());
+            orderDetail.setPrice(cartItem.getPrice());
+            orderDetail.setQuantity(cartItem.getQuantity());
+            orderDetail.setUserId(user.getId());
+            orderDetailRepository.save(orderDetail);
+        }
+
         cartItemRepository.deleteAll(); // Remove all items from the cart
         session.setAttribute("cartItems", new ArrayList<>()); // Clear session cartItems
 
-        // Set success message and total amount
         model.addAttribute("message", "Your purchase of $" + totalAmount + " is successful!");
 
         return "purchaseSuccess";
     }
 
-    @GetMapping("/cart")
+    @GetMapping
     public String cart(HttpSession session, Model model) {
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems == null) {
@@ -107,10 +126,7 @@ public class CartController {
         model.addAttribute("cartQty", cartItems.size());
 
         double totalAmount = calculateTotal(cartItems);
-        DecimalFormat df = new DecimalFormat("#0.00");
-        String formattedTotal = df.format(totalAmount);
-
-        model.addAttribute("total", formattedTotal);
+        model.addAttribute("total", totalAmount);
 
         return "cart";
     }
@@ -133,11 +149,36 @@ public class CartController {
         return "checkout";
     }
 
-    private double calculateTotal(List<CartItem> cartItems) {
-        double total = 0;
-        for (CartItem item : cartItems) {
-            total += item.getTotalAmount();
+    @GetMapping("/my-orders")
+    public String myOrders(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            List<Order> orders = orderService.getOrdersByUserId(user.getId());
+            model.addAttribute("user", user);
+            model.addAttribute("orders", orders);
+            return "my-orders";
+        } else {
+            return "redirect:/login";
         }
-        return total;
+    }
+
+    @GetMapping("/order-detail/{id}")
+    public String orderDetail(@PathVariable Long id, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            Order order = orderService.getOrderById(id);
+            if (order != null && order.getUserId().equals(user.getId())) {
+                List<OrderDetail> orderDetails = orderService.getOrderDetailsByOrderId(order.getId());
+                model.addAttribute("order", order);
+                model.addAttribute("orderDetails", orderDetails);
+                model.addAttribute("user", user);
+                return "order-detail";
+            } else {
+                return "redirect:/cart/my-orders";
+            }
+
+        } else {
+            return "redirect:/login";
+        }
     }
 }

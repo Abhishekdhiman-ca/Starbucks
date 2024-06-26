@@ -33,18 +33,18 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cart"><span class="badge text-bg-success" th:text="${cartQty}"></span> Cart</a>
                 </li>
-                <li th:if="${session.user == null}" class="nav-item dropdown">
+                <li th:if="${session.user == null && session.admin == null}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Account
                     </a>
@@ -53,11 +53,12 @@
                         <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
                     </ul>
                 </li>
-                <li th:if="${session.user != null}" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + ${session.user.firstName}"></a>
+                <li th:if="${session.user != null || session.admin != null}" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li><a class="dropdown-item" href="/my-orders">My Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
+                        <li th:if="${session.user != null}"><a class="dropdown-item" href="#">Settings</a></li>
+                        <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
@@ -66,7 +67,6 @@
         </div>
     </div>
 </nav>
-
 
 <!-- Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -83,7 +83,7 @@
             <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Second Slide">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/Carousel.jpeg}"  class="d-block w-100" alt="Third Slide">
+            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Third Slide">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -101,7 +101,7 @@
         <div class="col-md-4">
             <h2 class="hero-left-text">Welcome to Starbucks</h2>
             <p>Here you can buy coffee and other products at affordable prices</p>
-            <button class="custom-theme-button btn">Shop Now         <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon"></button>
+            <a href="/products" class="btn custom-theme-button">Shop Now <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon"></a>
         </div>
         <div class="col-md-8">
             <img class="hero-right img-fluid" th:src="@{/Hero.webp}" alt="grocery-shop">
@@ -109,128 +109,46 @@
     </div>
 </div>
 
-<h1 class="text-center mt-5">Buy Your Desired Product</h1>
+<h1 class="text-center mt-5">Our Products</h1>
 
 <div class="container">
     <div class="row">
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/1.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 1">
-                    <input type="hidden" name="image" value="1.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" th:src="@{/Bagel.jpg}" alt="Bagel">
+                <div class="card-body">
+                    <h5 class="card-title">Bagel</h5>
+                    <a href="/products?category=Bagel" class="btn btn-primary">View More</a>
+                </div>
             </div>
         </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/2.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$5.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 2">
-                    <input type="hidden" name="image" value="2.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" th:src="@{/Drinks.png}" alt="Drinks">
+                <div class="card-body">
+                    <h5 class="card-title">Drinks</h5>
+                    <a href="/products?category=Drinks" class="btn btn-primary">View More</a>
+                </div>
             </div>
         </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/3.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$8.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 3">
-                    <input type="hidden" name="image" value="3.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" th:src="@{/Juice.jpeg}" alt="Juice">
+                <div class="card-body">
+                    <h5 class="card-title">Juice</h5>
+                    <a href="/products?category=Juice" class="btn btn-primary">View More</a>
+                </div>
             </div>
         </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/4.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 4">
-                    <input type="hidden" name="image" value="4.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" th:src="@{/Bakery.jpg}" alt="Bakery">
+                <div class="card-body">
+                    <h5 class="card-title">Bakery</h5>
+                    <a href="/products?category=Bakery" class="btn btn-primary">View More</a>
+                </div>
             </div>
         </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/5.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 5">
-                    <input type="hidden" name="image" value="5.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/6.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 6">
-                    <input type="hidden" name="image" value="6.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/7.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="7.jpeg">
-                    <input type="hidden" name="image" value="7.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/8.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.00 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 8">
-                    <input type="hidden" name="image" value="8.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-        <div class="card col-md-3">
-            <img class="card-img-top" th:src="@{/9.jpeg}" alt="coffee-product">
-            <div class="card-body">
-                <h5 class="card-title">Coffee</h5>
-                <p class="card-text">$2.76 CAD</p>
-                <form action="/add" method="post">
-                    <input type="hidden" name="item" value="Coffee 9">
-                    <input type="hidden" name="image" value="9.jpeg">
-                    <input type="hidden" name="price" value="2.00">
-                    <button class="custom-common-theme-button btn">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-        <!-- More product cards... -->
     </div>
 </div>
 
@@ -248,16 +166,16 @@
                 <h5 class="text-uppercase">Quick Links</h5>
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a href="home.html" class="text-dark">Home</a>
+                        <a href="/" class="text-dark">Home</a>
                     </li>
                     <li>
-                        <a href="about.html" class="text-dark">About Us</a>
+                        <a href="/about" class="text-dark">About Us</a>
                     </li>
                     <li>
-                        <a href="contact.html" class="text-dark">Contact</a>
+                        <a href="/contact" class="text-dark">Contact</a>
                     </li>
                     <li>
-                        <a href="products.html" class="text-dark">Products</a>
+                        <a href="/products" class="text-dark">Products</a>
                     </li>
                 </ul>
             </div>
@@ -271,10 +189,10 @@
                         <a href="tel:+18009256278" class="text-dark">Phone: +1 800 925 6278</a>
                     </li>
                     <li>
-                        <a href="store-locator.html" class="text-dark">Store Locator</a>
+                        <a href="/store-locator" class="text-dark">Store Locator</a>
                     </li>
                     <li>
-                        <a href="faq.html" class="text-dark">FAQ</a>
+                        <a href="/faq" class="text-dark">FAQ</a>
                     </li>
                 </ul>
             </div>
