@@ -70,7 +70,7 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
@@ -92,8 +92,11 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Bagel.jpg}" alt="Bagel">
                 <div class="card-body">
-                    <h5 class="card-title">Bagel</h5>
-                    <a href="/admin/update-product" class="btn btn-primary me-2">Update Product</a>
+                    <h5 class="card-title small">Bagel</h5>
+                    <div class="d-flex">
+                        <a href="/admin/update-product" class="btn btn-success btn-sm me-2">Update Product</a>
+                        <a href="/admin/delete-product" class="btn btn-dark btn-sm">Delete Product</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,8 +104,11 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Drinks.png}" alt="Drinks">
                 <div class="card-body">
-                    <h5 class="card-title">Drinks</h5>
-                    <a href="/admin/update-product" class="btn btn-primary me-2">Update Product</a>
+                    <h5 class="card-title small">Drinks</h5>
+                    <div class="d-flex">
+                        <a href="/admin/update-product" class="btn btn-success btn-sm me-2">Update Product</a>
+                        <a href="/admin/delete-product" class="btn btn-dark btn-sm">Delete Product</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,8 +116,11 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Juice.jpeg}" alt="Juice">
                 <div class="card-body">
-                    <h5 class="card-title">Juice</h5>
-                    <a href="/admin/update-product" class="btn btn-primary me-2">Update Product</a>
+                    <h5 class="card-title small">Juice</h5>
+                    <div class="d-flex">
+                        <a href="/admin/update-product" class="btn btn-success btn-sm me-2">Update Product</a>
+                        <a href="/admin/delete-product" class="btn btn-dark btn-sm">Delete Product</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,11 +128,56 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Bakery.jpg}" alt="Bakery">
                 <div class="card-body">
-                    <h5 class="card-title">Bakery</h5>
-                    <a href="/admin/update-product" class="btn btn-primary me-2">Update Product</a>
+                    <h5 class="card-title small">Bakery</h5>
+                    <div class="d-flex">
+                        <a href="/admin/update-product" class="btn btn-success btn-sm me-2">Update Product</a>
+                        <a href="/admin/delete-product" class="btn btn-dark btn-sm">Delete Product</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class='container-fluid mx-auto mt-5 mb-5 col-12' style="text-align: center">
+    <h1 class="text-center mt-5">Why People Believe in Us</h1>
+    <p><small class="text-muted">Always render more and better service than <br />is expected of you, no matter what your ask may be.</small></p>
+    <div class="row" style="justify-content: center">
+        <div class="card col-md-3 col-12">
+            <div class="card-content">
+                <div class="card-body"> <img class="img" src="https://i.imgur.com/S7FJza5.png" />
+                    <div class="shadow"></div>
+                    <div class="card-title"> We're Free </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted">We spent thousands of hours creating on algorithm that does this for you in seconds. We collect a small fee from the professional after they meet your</small> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-3 col-12 ml-2">
+            <div class="card-content">
+                <div class="card-body"> <img class="img" src="https://i.imgur.com/xUWJuHB.png" />
+                    <div class="card-title"> We're Unbiased </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted"> We don't accept ads from anyone. We use actual data to match you who the best person for each job </small> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-3 col-12 ml-2">
+            <div class="card-content">
+                <div class="card-body"> <img class="img rck" src="https://i.imgur.com/rG3CGn3.png" />
+                    <div class="card-title"> We Guide you </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted">Buying or selling a home is often the largest transaction anyone does in their life. we guide you through the process so that you can be confident in reaching your dream outcome.</small> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ft">
+        <p class="chk"><small class="text-muted">Still not sure?</small></p>
+        <a href="#" class="btn btn-success">Read All Testimonials</a>
     </div>
 </div>
 

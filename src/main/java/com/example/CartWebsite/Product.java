@@ -45,7 +45,16 @@ public class Product {
     private String name;
     private double price;
     private String image;
+    private String description;
     private String category;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getCategory() {
         return category;

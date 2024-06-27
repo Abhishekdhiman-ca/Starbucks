@@ -9,6 +9,13 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
+<!-- Top Bar -->
+<div class="top-bar">
+    <p class="welcome-text">
+        Welcome to Starbucks
+        <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon">
+    </p>
+</div>
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -22,18 +29,18 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cart"><span class="badge text-bg-success" th:text="${cartQty}"></span> Cart</a>
                 </li>
-                <li th:if="${session.user == null}" class="nav-item dropdown">
+                <li th:if="${session.user == null && session.admin == null}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Account
                     </a>
@@ -42,11 +49,12 @@
                         <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
                     </ul>
                 </li>
-                <li th:if="${session.user != null}" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + ${session.user.firstName}"></a>
+                <li th:if="${session.user != null || session.admin != null}" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
+                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/settings">Settings</a></li>
+                        <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
@@ -75,7 +83,7 @@
             <td th:text="${order.totalAmount}"></td>
             <td th:text="${order.status}"></td>
             <td>
-                <a th:href="@{'/cart/order-detail/' + ${order.id}}" class="btn btn-primary">View Order Detail</a>
+                <a th:href="@{'/cart/order-detail/' + ${order.id}}" class="btn btn-success">View Order Detail</a>
             </td>
         </tr>
         </tbody>

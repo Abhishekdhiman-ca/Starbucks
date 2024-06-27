@@ -12,6 +12,13 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
+<!-- Top Bar -->
+<div class="top-bar">
+    <p class="welcome-text">
+        Welcome to Starbucks
+        <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon">
+    </p>
+</div>
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -49,7 +56,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
                         <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
-                        <li th:if="${session.user != null}"><a class="dropdown-item" href="#">Settings</a></li>
+                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/settings">Settings</a></li>
                         <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -64,26 +71,31 @@
 <div class="container mt-5">
     <h1 class="text-center">All Products</h1>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 d-flex justify-content-center">
             <div class="btn-group mb-3" role="group" aria-label="Product Categories">
-                <a href="/products?category=Bagel" class="btn btn-outline-secondary">Bagel</a>
-                <a href="/products?category=Drinks" class="btn btn-outline-secondary">Drinks</a>
-                <a href="/products?category=Juice" class="btn btn-outline-secondary">Juice</a>
-                <a href="/products?category=Bakery" class="btn btn-outline-secondary">Bakery</a>
+                <a href="/products" class="btn btn-outline-success">All Products</a>
+                <a href="/products?category=Bagel" class="btn btn-outline-success">Bagel</a>
+                <a href="/products?category=Drinks" class="btn btn-outline-success">Drinks</a>
+                <a href="/products?category=Juice" class="btn btn-outline-success">Juice</a>
+                <a href="/products?category=Bakery" class="btn btn-outline-success">Bakery</a>
             </div>
         </div>
     </div>
+</div>
+
     <div class="row">
         <div class="card col-md-3" th:each="product : ${products}">
             <img class="card-img-top" th:src="@{'/' + ${product.image}}" alt="product">
             <div class="card-body">
                 <h5 class="card-title" th:text="${product.name}"></h5>
+                <p class="card-text" th:text="${product.description}"></p>
                 <p class="card-text" th:text="'$' + ${product.price} + ' CAD'"></p>
                 <div th:if="${session.admin == null}">
                     <form action="/cart/add" method="post">
                         <input type="hidden" name="item" th:value="${product.name}">
                         <input type="hidden" name="image" th:value="${product.image}">
                         <input type="hidden" name="price" th:value="${product.price}">
+                        <input type="hidden" name="price" th:value="${product.description}">
                         <button type="submit" class="custom-common-theme-button btn">Add to Cart</button>
                     </form>
                 </div>

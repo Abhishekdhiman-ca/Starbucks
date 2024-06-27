@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -41,6 +43,27 @@ public class UserController {
         }
         userService.save(user);
         return "redirect:/login";
+    }
+    @GetMapping("/settings")
+    public String settings(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        return "settings";
+    }
+
+    @PostMapping("/update-user-info")
+    public String updateUserInfo(HttpSession session, @RequestParam String firstName, @RequestParam String lastName) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        userRepository.save(user);
+        session.setAttribute("user", user);
+        return "redirect:/settings";
     }
 
     @GetMapping("/login")
