@@ -26,7 +26,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
         .buttons-center .btn {
             padding: 10px 20px;
@@ -42,36 +42,36 @@
     </style>
 </head>
 <body>
-<!-- Top Bar -->
-<!-- Top Bar -->
-<div class="top-bar">
-    <p class="welcome-text">
-        Welcome to Starbucks Admin
-        <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon">
-    </p>
-</div>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#"><img class="logo" th:src="@{/48.png}" alt="Logo" style="width: 50px;"> Starbucks</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}">Logout</a>
-                </li>
-            </ul>
+<!-- Include the navbar fragment -->
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<!-- Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="First Slide">
+        </div>
+        <div class="carousel-item">
+            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Second Slide">
+        </div>
+        <div class="carousel-item">
+            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Third Slide">
         </div>
     </div>
-</nav>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 <!-- Hero Section -->
 <div class="hero-section">
@@ -82,8 +82,8 @@
 <div class="container mt-5">
     <div class="buttons-center">
         <a href="/admin/add-product" class="btn btn-success">Add Product</a>
-        <a href="/admin/update-product" class="btn btn-primary">Update Product</a>
-        <a href="/admin/delete-product" class="btn btn-danger">Delete Product</a>
+        <a href="/admin/update-product" class="btn btn-success">Update Product</a>
+        <a href="/admin/delete-product" class="btn btn-success">Delete Product</a>
     </div>
 
     <div class="order-table">
@@ -114,7 +114,7 @@
                             <option th:selected="${order.status == 'In Progress'}" value="In Progress">In Progress</option>
                             <option th:selected="${order.status == 'Delivered'}" value="Delivered">Delivered</option>
                         </select>
-                        <button type="submit" class="btn btn-primary mt-1">Update</button>
+                        <button type="submit" class="btn btn-dark mt-1">Update</button>
                     </form>
                 </td>
             </tr>
@@ -122,6 +122,8 @@
         </table>
     </div>
 </div>
+<!-- Include the admin footer fragment -->
+<div th:insert="fragments/admin-footer :: admin-footer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

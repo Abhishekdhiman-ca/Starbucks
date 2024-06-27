@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")
@@ -52,16 +53,19 @@ public class CartController {
         }
 
         session.setAttribute("cartItems", cartItems);
-        return "redirect:/";
+        return "redirect:/cart";
     }
 
     @PostMapping("/remove")
     public String removeFromCart(@RequestParam Long id, HttpSession session) {
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems != null) {
-            cartItems.removeIf(cartItem -> cartItem.getId().equals(id));
-            cartItemRepository.deleteById(id);
-            session.setAttribute("cartItems", cartItems);
+            Optional<CartItem> itemToRemove = cartItems.stream().filter(cartItem -> cartItem.getId().equals(id)).findFirst();
+            if (itemToRemove.isPresent()) {
+                cartItems.remove(itemToRemove.get());
+                cartItemRepository.deleteById(id);
+                session.setAttribute("cartItems", cartItems);
+            }
         }
         return "redirect:/cart";
     }
@@ -120,7 +124,8 @@ public class CartController {
     public String cart(HttpSession session, Model model) {
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems == null) {
-            cartItems = new ArrayList<>();
+            cartItems = (List<CartItem>) cartItemRepository.findAll();
+            session.setAttribute("cartItems", cartItems);
         }
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("cartQty", cartItems.size());

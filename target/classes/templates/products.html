@@ -12,60 +12,8 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-<!-- Top Bar -->
-<div class="top-bar">
-    <p class="welcome-text">
-        Welcome to Starbucks
-        <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon">
-    </p>
-</div>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#"><img class="logo" th:src="@{/48.png}" alt="Logo">Starbucks</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cart"><span class="badge text-bg-success" th:text="${cartQty}"></span> Cart</a>
-                </li>
-                <li th:if="${session.user == null && session.admin == null}" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
-                        <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
-                    </ul>
-                </li>
-                <li th:if="${session.user != null || session.admin != null}" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
-                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
-                        <li th:if="${session.user != null}"><a class="dropdown-item" href="/settings">Settings</a></li>
-                        <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- Include the user navbar fragment -->
+<div th:insert="fragments/user-navbar :: user-navbar"></div>
 
 <!-- Products Section -->
 <div class="container mt-5">
@@ -108,74 +56,8 @@
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="footer-area text-center text-lg-start mt-5">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Starbucks <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon"></h5>
-                <p>
-                    Starbucks is committed to helping people save money and live better. With a wide range of products and services, we strive to provide the best shopping experience both online and in our stores.
-                </p>
-            </div>
-            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Quick Links</h5>
-                <ul class="list-unstyled mb-0">
-                    <li>
-                        <a href="/" class="text-dark">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about" class="text-dark">About Us</a>
-                    </li>
-                    <li>
-                        <a href="/contact" class="text-dark">Contact</a>
-                    </li>
-                    <li>
-                        <a href="/products" class="text-dark">Products</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Customer Service</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="mailto:help@starbucks.com" class="text-dark">Email: help@starbucks.com</a>
-                    </li>
-                    <li>
-                        <a href="tel:+18009256278" class="text-dark">Phone: +1 800 925 6278</a>
-                    </li>
-                    <li>
-                        <a href="/store-locator" class="text-dark">Store Locator</a>
-                    </li>
-                    <li>
-                        <a href="/faq" class="text-dark">FAQ</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-0">Corporate Info</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="https://corporate.starbucks.com" class="text-dark" target="_blank">Corporate Website</a>
-                    </li>
-                    <li>
-                        <a href="mailto:corporate@starbucks.com" class="text-dark">Email: corporate@starbucks.com</a>
-                    </li>
-                    <li>
-                        <a href="tel:+14792733000" class="text-dark">Phone: +1 479 273 3000</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Address: 702 SW 8th Street, Bentonville, AR 72716, USA</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center p-3 text-white bg-dark">
-        © 2024 Starbucks Inc. All rights reserved. | Starbucks and the Starbucks logo are registered trademarks of Starbucks Inc.
-    </div>
-</footer>
+<!-- Include the user footer fragment -->
+<div th:insert="fragments/footer :: user-footer"></div>
 
 <!-- Latest Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
