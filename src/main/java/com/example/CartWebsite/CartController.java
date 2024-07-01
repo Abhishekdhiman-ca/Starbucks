@@ -29,7 +29,8 @@ public class CartController {
 
     @PostMapping("/add")
     public String addToCart(@RequestParam String item, @RequestParam String image,
-                            @RequestParam double price, HttpSession session) {
+                            @RequestParam double price, @RequestParam int quantity,
+                            HttpSession session) {
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
@@ -39,7 +40,7 @@ public class CartController {
         boolean itemExists = false;
         for (CartItem cartItem : cartItems) {
             if (cartItem.getName().equals(item)) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
                 cartItemRepository.save(cartItem);
                 itemExists = true;
                 break;
@@ -48,13 +49,15 @@ public class CartController {
 
         if (!itemExists) {
             CartItem newCartItem = new CartItem(item, image, price);
+            newCartItem.setQuantity(quantity);
             cartItemRepository.save(newCartItem);
             cartItems.add(newCartItem);
         }
 
         session.setAttribute("cartItems", cartItems);
-        return "redirect:/cart";
+        return "redirect:/products";
     }
+
 
     @PostMapping("/remove")
     public String removeFromCart(@RequestParam Long id, HttpSession session) {

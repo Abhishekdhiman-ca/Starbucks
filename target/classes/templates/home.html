@@ -26,13 +26,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="First Slide">
+            <img th:src="@{/1b.jpg}" class="d-block w-100 carousel-image" alt="First Slide">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Second Slide">
+            <img th:src="@{/1b.jpg}" class="d-block w-100 carousel-image" alt="Second Slide">
         </div>
         <div class="carousel-item">
-            <img th:src="@{/Carousel.jpeg}" class="d-block w-100" alt="Third Slide">
+            <img th:src="@{/1b.jpg}" class="d-block w-100 carousel-image" alt="Third Slide">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -51,7 +51,7 @@
         <div class="col-md-4">
             <h2 class="hero-left-text">Welcome to Starbucks</h2>
             <p>Here you can buy coffee and other products at affordable prices</p>
-            <a href="/products" class="btn custom-theme-button">Shop Now <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon"></a>
+            <a href="/products" class="btn custom-theme-button">Shop Now <img th:src="@{/shop.png}" alt="Starbucks Icon" class="starbucks-icon"></a>
         </div>
         <div class="col-md-8">
             <img class="hero-right img-fluid" th:src="@{/Hero.webp}" alt="grocery-shop">
@@ -67,7 +67,7 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Bagel.jpg}" alt="Bagel">
                 <div class="card-body">
-                    <h5 class="card-title">Bagel</h5>
+                    <h5 class="card-title">Bagels <img th:src="@{/bagel.png}" alt="Starbucks Icon" class="starbucks-icon"></h5>
                     <a href="/products?category=Bagel" class="btn btn-success">View More</a>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Drinks.png}" alt="Drinks">
                 <div class="card-body">
-                    <h5 class="card-title">Drinks</h5>
+                    <h5 class="card-title">Drinks <img th:src="@{/cold-drinks.png}" alt="Starbucks Icon" class="starbucks-icon"></h5>
                     <a href="/products?category=Drinks" class="btn btn-success">View More</a>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Juice.jpeg}" alt="Juice">
                 <div class="card-body">
-                    <h5 class="card-title">Juice</h5>
+                    <h5 class="card-title">Juices <img th:src="@{/juice.png}" alt="Starbucks Icon" class="starbucks-icon"></h5>
                     <a href="/products?category=Juice" class="btn btn-success">View More</a>
                 </div>
             </div>
@@ -94,7 +94,7 @@
             <div class="card">
                 <img class="card-img-top" th:src="@{/Bakery.jpg}" alt="Bakery">
                 <div class="card-body">
-                    <h5 class="card-title">Bakery</h5>
+                    <h5 class="card-title">Bakery Products <img th:src="@{/bakery.png}" alt="Starbucks Icon" class="starbucks-icon"></h5>
                     <a href="/products?category=Bakery" class="btn btn-success">View More</a>
                 </div>
             </div>
@@ -102,47 +102,56 @@
     </div>
 </div>
 
-<div class='container-fluid mx-auto mt-5 mb-5 col-12' style="text-align: center">
+<div class="container-fluid mx-auto mt-5 mb-5 col-12" style="text-align: center">
+    <!-- Testimonials Section -->
     <h1 class="text-center mt-5">Why People Believe in Us</h1>
-    <p><small class="text-muted">Always render more and better service than <br />is expected of you, no matter what your ask may be.</small></p>
+    <p><small class="text-muted">Always render more and better service than <br />is expected of you, no matter what your task may be.</small></p>
     <div class="row" style="justify-content: center">
+        <!-- First Card -->
         <div class="card col-md-3 col-12">
             <div class="card-content">
-                <div class="card-body"> <img class="img" src="https://i.imgur.com/S7FJza5.png" />
+                <div class="card-body">
+                    <img class="img" src="https://i.imgur.com/S7FJza5.png" alt="High Quality Coffee"/>
                     <div class="shadow"></div>
-                    <div class="card-title"> We're Free </div>
+                    <div class="card-title"> High Quality Coffee </div>
                     <div class="card-subtitle">
-                        <p> <small class="text-muted">We spent thousands of hours creating on algorithm that does this for you in seconds. We collect a small fee from the professional after they meet your</small> </p>
+                        <p> <small class="text-muted">We meticulously source the finest coffee beans from around the world, ensuring every cup delivers rich, full-bodied flavor.</small> </p>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Second Card -->
         <div class="card col-md-3 col-12 ml-2">
             <div class="card-content">
-                <div class="card-body"> <img class="img" src="https://i.imgur.com/xUWJuHB.png" />
-                    <div class="card-title"> We're Unbiased </div>
+                <div class="card-body">
+                    <img class="img" src="https://i.imgur.com/xUWJuHB.png" alt="Commitment to Sustainability"/>
+                    <div class="card-title"> Commitment to Sustainability </div>
                     <div class="card-subtitle">
-                        <p> <small class="text-muted"> We don't accept ads from anyone. We use actual data to match you who the best person for each job </small> </p>
+                        <p> <small class="text-muted">We believe in a sustainable future, investing in ethical sourcing and environmentally friendly practices to protect our planet.</small> </p>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Third Card -->
         <div class="card col-md-3 col-12 ml-2">
             <div class="card-content">
-                <div class="card-body"> <img class="img rck" src="https://i.imgur.com/rG3CGn3.png" />
-                    <div class="card-title"> We Guide you </div>
+                <div class="card-body">
+                    <img class="img rck" src="https://i.imgur.com/rG3CGn3.png" alt="Community Focused"/>
+                    <div class="card-title"> Community Focused </div>
                     <div class="card-subtitle">
-                        <p> <small class="text-muted">Buying or selling a home is often the largest transaction anyone does in their life. we guide you through the process so that you can be confident in reaching your dream outcome.</small> </p>
+                        <p> <small class="text-muted">We aim to inspire and nurture the human spirit, one person, one cup, and one neighborhood at a time through our community programs and partnerships.</small> </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Footer Section -->
     <div class="ft">
         <p class="chk"><small class="text-muted">Still not sure?</small></p>
         <a href="/about" class="btn btn-success">Read All Testimonials</a>
     </div>
 </div>
+
 
 <!-- Include the user footer fragment -->
 <div th:insert="fragments/footer :: user-footer"></div>

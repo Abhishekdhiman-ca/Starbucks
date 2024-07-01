@@ -1,7 +1,9 @@
+/* Body Styles */
 body {
     font-family: 'Arial', sans-serif;
 }
 
+/* Navbar Styles */
 .navbar {
     background-color: #f8f9fa !important;
 }
@@ -90,16 +92,16 @@ body {
     }
 }
 
-/* Carousel styles */
+/* Carousel Styles */
 .carousel-inner {
     width: 100%;
     overflow: hidden;
 }
 
 .carousel-inner img {
-    width: 800px;
-    height: auto; /* Maintain the aspect ratio */
-    max-height: 517px; /* Set maximum height as needed */
+    width: 100%;
+    height: auto;
+    max-height: 517px;
 }
 
 .carousel-caption {
@@ -113,6 +115,7 @@ body {
     filter: invert(100%);
 }
 
+/* Footer Styles */
 footer {
     background: black;
     padding: 40px 0;
@@ -135,9 +138,6 @@ footer .text-white {
     color: #fff !important;
 }
 
-/* Logo Area */
-.logo {}
-
 .footer-area {
     background: black;
 }
@@ -158,10 +158,15 @@ footer .text-white {
     color: #185c37 !important; /* Change hover color to green */
 }
 
+/* Logo Area */
+.logo {}
+
+/* Hero Section */
 .hero-left-text {
     margin-top: 100px;
 }
 
+/* Card Styles */
 .card-img-top {
     height: 250px;
     padding: 20px;
@@ -170,11 +175,29 @@ footer .text-white {
 .card {
     margin-top: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
 }
 
-.cart-imge {
+.card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+/* Cart Image */
+.cart-img {
     width: 100px;
     height: 100px;
+    object-fit: cover;
+}
+
+.img {
+    margin-bottom: 35px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 
 /* Custom Buttons */
@@ -202,4 +225,31 @@ footer .text-white {
     background-color: black;
     color: white;
 }
-head, .card{cursor: pointer}.hd{font-size: 25px;font-weight: 550}.card.hover, .card:hover{box-shadow: 0 20px 40px rgba(0, 0, 0, .2)}.img{margin-bottom: 35px;-webkit-filter: drop-shadow(5px 5px 5px #222);filter: drop-shadow(5px 5px 5px #222)}.card-title{font-weight: 600}button.focus, button:focus{outline: 0;box-shadow: none !important}.ft{margin-top: 25px}.chk{margin-bottom: 5px}.rck{margin-top: 20px;padding-bottom: 15px
+
+/* Additional Styles */
+.head {
+    cursor: pointer;
+}
+
+.hd {
+    font-size: 25px;
+    font-weight: 550;
+}
+
+button:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.ft {
+    margin-top: 25px;
+}
+
+.chk {
+    margin-bottom: 5px;
+}
+
+.rck {
+    margin-top: 20px;
+    padding-bottom: 15px;
+}

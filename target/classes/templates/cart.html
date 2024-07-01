@@ -37,20 +37,20 @@
             <th scope="row" th:text="${index.count}"></th>
             <td><img class="cart-img" th:src="@{'/' + ${item.image}}" alt="product image"></td>
             <td th:text="${item.name}"></td>
-            <td th:text="${item.price}"></td>
+            <td th:text="'$' + ${item.price}"></td>
             <td th:text="${item.quantity}"></td>
-            <td th:text="${item.quantity * item.price}"></td>
+            <td th:text="'$' + ${item.quantity * item.price}"></td>
             <td>
                 <form th:action="@{/cart/remove}" method="post">
                     <input type="hidden" name="id" th:value="${item.id}">
-                    <button class="btn btn-danger" type="submit">X</button>
+                    <button class="btn btn-success" type="submit">X</button>
                 </form>
             </td>
         </tr>
         <tr>
             <th scope="row">Total</th>
             <td colspan="4"></td>
-            <td th:text="${total}"></td>
+            <td th:text="'$' + ${total} + ' CAD'"></td>
         </tr>
         <tr>
             <th scope="row"></th>

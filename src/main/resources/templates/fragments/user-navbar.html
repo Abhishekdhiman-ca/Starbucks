@@ -1,12 +1,35 @@
-<!-- user-navbar.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .top-bar {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: right;
+        }
+        .welcome-text {
+            margin: 0;
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .starbucks-icon {
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
 <body>
 <div th:fragment="user-navbar">
     <!-- Top Bar -->
     <div class="top-bar">
         <p class="welcome-text">
-            Welcome to Starbucks
+            <span th:if="${session.user != null}" th:text="'Welcome ' + ${session.user.firstName}"></span>
+            <span th:if="${session.admin != null}" th:text="'Welcome ' + ${session.admin.firstName} + ' Sir'"></span>
+            <span th:if="${session.user == null && session.admin == null}">Welcome to Starbucks</span>
             <img th:src="@{/48.png}" alt="Starbucks Icon" class="starbucks-icon">
         </p>
     </div>
@@ -14,23 +37,25 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img class="logo" th:src="@{/48.png}" alt="Logo">Starbucks</a>
+            <a class="navbar-brand" href="#"><img class="logo" th:src="@{/48.png}" alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/cart"><span class="badge text-bg-success" th:text="${cartQty}"></span> Cart</a>
@@ -45,8 +70,8 @@
                         </ul>
                     </li>
                     <li th:if="${session.user != null || session.admin != null}" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
-                        <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdownLoggedIn" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
+                        <ul class="dropdown-menu" aria-labelledby="accountDropdownLoggedIn">
                             <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
                             <li th:if="${session.user != null}"><a class="dropdown-item" href="/settings">Settings</a></li>
                             <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>

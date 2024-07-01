@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -142,4 +143,22 @@ public class AdminController {
         productRepository.deleteById(productId);
         return "redirect:/admin/dashboard";
     }
+
+    @GetMapping("/admin/order-detail/{id}")
+    public String orderDetail(@PathVariable Long id, HttpSession session, Model model) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if (admin == null) {
+            return "redirect:/login";
+        }
+        Order order = orderService.getOrderById(id);
+        if (order != null) {
+            List<OrderDetail> orderDetails = orderService.getOrderDetailsByOrderId(order.getId());
+            model.addAttribute("order", order);
+            model.addAttribute("orderDetails", orderDetails);
+            return "order-detail";
+        } else {
+            return "redirect:/admin/dashboard";
+        }
+    }
+
 }
