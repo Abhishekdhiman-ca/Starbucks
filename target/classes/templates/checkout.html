@@ -14,16 +14,15 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/style.css}" />
     <style>
-        .order-summary, .payment-info {
+        .order-summary {
             background-color: #fff;
             padding: 20px;
-            border: 1px solid lightgrey;
+            border: 1px solid black;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .order-summary {
             margin-bottom: 20px;
+            max-height: 500px; /* Set a maximum height */
+            overflow-y: auto; /* Enable vertical scrolling */
         }
 
         .icon-container {
@@ -33,7 +32,7 @@
         }
 
         .custom-common-theme-button {
-            background-color: black ;
+            background-color: #185c37 ;
             color: white;
             padding: 12px;
             margin: 10px 0;
@@ -45,7 +44,7 @@
         }
 
         .custom-common-theme-button:hover {
-            background-color: #333;
+            background-color: #185c37;
             color: white;
         }
 
@@ -66,17 +65,20 @@
         }
 
         .card-details {
-            background-color: #185c37;
-            color: white;
+            background-color: white;
+            color: black;
             padding: 20px;
+            border: 1px solid black;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 500px; /* Set a maximum height */
+            overflow-y: auto; /* Enable vertical scrolling */
         }
 
         .card-details input {
             background-color: #fff;
             color: black;
-            border: none;
+            border: 1px solid black;
             margin-bottom: 10px;
             border-radius: 5px;
             padding: 10px;
@@ -99,7 +101,8 @@
         .icon-container i {
             margin-right: 10px;
         }
-                .top-gap {
+
+        .top-gap {
             margin-top: 20px; /* Adjust this value as needed */
         }
     </style>

@@ -9,28 +9,51 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
     <style>
         .header-box {
-    text-align: center;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+            text-align: center;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.header-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+        .header-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-section img {
+            width: 45%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .about-section .content {
+            width: 50%;
+        }
     </style>
 </head>
 <body>
@@ -39,15 +62,32 @@
 
 <div class="container mt-5">
     <h1 class="header-box">About Us</h1>
-    <p class="mb-4">Welcome to Starbucks. Our mission is to inspire and nurture the human spirit – one person, one cup, and one neighborhood at a time. We are dedicated to providing the highest quality coffee experience and a welcoming environment for all our customers.</p>
+    <div class="about-section">
+        <div class="content">
+            <p>Welcome to Starbucks. Our mission is to inspire and nurture the human spirit – one person, one cup, and one neighborhood at a time. We are dedicated to providing the highest quality coffee experience and a welcoming environment for all our customers.</p>
+        </div>
+        <img th:src="@{/login.webp}" alt="Starbucks Storefront 1">
+    </div>
+
     <h2 class="header-box">Our Story</h2>
-    <p class="mb-4">Founded in 1971, Starbucks has grown to become one of the most recognized and respected coffee brands in the world. We pride ourselves on our commitment to quality, sustainability, and community.</p>
+    <div class="about-section">
+        <img th:src="@{/1b.jpg}" alt="Starbucks Storefront 2">
+        <div class="content">
+            <p>Founded in 1971, Starbucks has grown to become one of the most recognized and respected coffee brands in the world. We pride ourselves on our commitment to quality, sustainability, and community.</p>
+        </div>
+    </div>
+
     <h2 class="header-box">Our Values</h2>
-    <ul class="list-disc list-inside mb-4">
-        <li>Delivering our very best in all we do, holding ourselves accountable for results.</li>
-        <li>Acting with courage, challenging the status quo, and finding new ways to grow our company and each other.</li>
-        <li>Being present, connecting with transparency, dignity, and respect.</li>
-    </ul>
+    <div class="about-section">
+        <div class="content">
+            <ul class="list-disc list-inside mb-4">
+                <li>Delivering our very best in all we do, holding ourselves accountable for results.</li>
+                <li>Acting with courage, challenging the status quo, and finding new ways to grow our company and each other.</li>
+                <li>Being present, connecting with transparency, dignity, and respect.</li>
+            </ul>
+        </div>
+        <img th:src="@{/starbucks.jpg}" alt="Starbucks Storefront 1">
+    </div>
 </div>
 
 <div class="container mt-5">

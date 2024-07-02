@@ -24,6 +24,9 @@
         .order-table {
             margin-top: 30px;
         }
+        #orderTable {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +34,7 @@
 <div th:insert="fragments/navbar :: navbar"></div>
 
 <!-- Carousel -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" th:if="${showOrders == null}">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -59,13 +62,17 @@
 </div>
 
 <!-- Main content -->
-<div class="container mt-5">
+<div class="container mt-5" th:if="${showOrders == null}">
     <div class="buttons-center">
         <a href="/admin/add-product" class="btn btn-success">Add Product</a>
         <a href="/admin/update-product" class="btn btn-success">Update Product</a>
         <a href="/admin/delete-product" class="btn btn-success">Delete Product</a>
+        <a href="/admin/view-orders" class="btn btn-success">View All Orders</a>
     </div>
+</div>
 
+<!-- Orders Table -->
+<div class="container mt-5" th:if="${showOrders != null}">
     <div class="order-table">
         <h3>Orders</h3>
         <table class="table table-hover table-bordered">
@@ -103,6 +110,7 @@
         </table>
     </div>
 </div>
+
 <!-- Include the admin footer fragment -->
 <div th:insert="fragments/admin-footer :: admin-footer"></div>
 

@@ -50,6 +50,27 @@ public class AdminController {
         return "admin-dashboard";
     }
 
+    @GetMapping("/admin/view-orders")
+    public String viewOrders(HttpSession session, Model model) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if (admin == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("showOrders", true);
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "admin-dashboard";
+    }
+    @GetMapping("/admin/show-all-products")
+    public String showAllProducts(HttpSession session, Model model) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if (admin == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("showProducts", true);
+        model.addAttribute("products", productRepository.findAll());
+        return "delete-product";
+    }
+
     @PostMapping("/admin/update-order-status")
     public String updateOrderStatus(@RequestParam Long orderId, @RequestParam String status, HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("admin");
@@ -57,7 +78,7 @@ public class AdminController {
             return "redirect:/login";
         }
         orderService.updateOrderStatus(orderId, status);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/view-orders";
     }
 
     @GetMapping("/admin/add-product")
