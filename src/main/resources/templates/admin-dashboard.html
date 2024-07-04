@@ -8,35 +8,34 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
     <style>
         .count-card {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin: 10px;
-    background-color: #f9f9f9;
-}
-.count-value {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.buttons-center {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-.buttons-center .btn {
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    transition: transform 0.2s;
-}
-.buttons-center .btn:hover {
-    transform: scale(1.05);
-}
-.order-table {
-    margin-top: 30px;
-}
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+        .count-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .buttons-center {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .buttons-center .btn {
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        .buttons-center .btn:hover {
+            transform: scale(1.05);
+        }
+        .order-table {
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -72,7 +71,7 @@
 </div>
 
 <!-- Counts Section -->
-<div class="container mt-5">
+<div class="container mt-5" th:if="${showOrders == null}">
     <h1 class="text-center">Admin Dashboard</h1>
     <div class="row">
         <div class="col-md-3">
