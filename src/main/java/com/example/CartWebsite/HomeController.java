@@ -18,6 +18,9 @@ public class HomeController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
     @GetMapping("/")
     public String home(HttpSession session, Model model) {
         Object user = session.getAttribute("user");
@@ -33,6 +36,19 @@ public class HomeController {
 
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
+
+
+
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        if (cartItems == null) {
+            cartItems = (List<CartItem>) cartItemRepository.findAll();
+            session.setAttribute("cartItems", cartItems);
+        }
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cartQty", cartItems.size());
+
+        double totalAmount = calculateTotal(cartItems);
+        model.addAttribute("total", totalAmount);
         return "home";
     }
 
@@ -63,5 +79,13 @@ public class HomeController {
         // Handle form submission logic here
         model.addAttribute("message", "Thank you for contacting us, " + name + ". We will get back to you soon.");
         return "contact";
+    }
+
+    private double calculateTotal(List<CartItem> cartItems) {
+        double total = 0;
+        for (CartItem item : cartItems) {
+            total += item.getTotalAmount();
+        }
+        return total;
     }
 }
