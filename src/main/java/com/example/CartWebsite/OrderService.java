@@ -29,6 +29,10 @@ public class OrderService {
         return orderRepository.findByStatus(status);
     }
 
+    public long countAllOrders() {
+        return orderRepository.count();
+    }
+
     public void updateOrderStatus(Long orderId, String status) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
         order.setStatus(status);

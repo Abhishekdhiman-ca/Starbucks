@@ -16,4 +16,8 @@ public class AdminService {
     public void save(Admin admin) {
         adminRepository.save(admin);
     }
+
+    public long countAllAdmins() {
+        return adminRepository.count();
+    }
 }

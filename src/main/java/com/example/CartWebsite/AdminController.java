@@ -25,6 +25,9 @@ public class AdminController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private static final String UPLOAD_DIR = "src/main/resources/static/";
 
     @GetMapping("/admin/home")
@@ -42,8 +45,20 @@ public class AdminController {
         if (admin == null) {
             return "redirect:/login";
         }
+
+        long orderCount = orderService.countAllOrders();
+        long userCount = userRepository.count();
+        long adminCount = adminService.countAllAdmins();
+        long productCount = productRepository.count();
+
+        model.addAttribute("orderCount", orderCount);
+        model.addAttribute("userCount", userCount);
+        model.addAttribute("adminCount", adminCount);
+        model.addAttribute("productCount", productCount);
+
         model.addAttribute("orders", orderService.getAllOrders());
         model.addAttribute("products", productRepository.findAll());
+
         return "admin-dashboard";
     }
 
@@ -80,7 +95,7 @@ public class AdminController {
         }
 
         model.addAttribute("products", products);
-        model.addAttribute("selectedCategory", category);  // Add the selected category to the model
+        model.addAttribute("selectedCategory", category);
         return "admin-products";
     }
 
