@@ -24,9 +24,6 @@
         .order-table {
             margin-top: 30px;
         }
-        #orderTable {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -65,14 +62,21 @@
 <div class="container mt-5" th:if="${showOrders == null}">
     <div class="buttons-center">
         <a href="/admin/add-product" class="btn btn-success">Add Product</a>
-        <a href="/admin/update-product" class="btn btn-success">Update Product</a>
-        <a href="/admin/delete-product" class="btn btn-success">Delete Product</a>
-        <a href="/admin/view-orders" class="btn btn-success">View All Orders</a>
+        <a href="/admin/products" class="btn btn-success">Update Product</a>
+        <a href="/admin/products" class="btn btn-success">Delete Product</a>
+        <a href="/admin/view-orders" class="btn btn-success">View Orders</a>
     </div>
 </div>
 
 <!-- Orders Table -->
 <div class="container mt-5" th:if="${showOrders != null}">
+    <div class="buttons-center">
+        <a href="/admin/view-orders" th:classappend="${status == null} ? 'btn-success' : 'btn-outline-success'" class="btn">All Orders</a>
+        <a href="/admin/view-orders?status=Pending" th:classappend="${status == 'Pending'} ? 'btn-success' : 'btn-outline-success'" class="btn">Pending Orders</a>
+        <a href="/admin/view-orders?status=In Progress" th:classappend="${status == 'In Progress'} ? 'btn-success' : 'btn-outline-success'" class="btn">In Progress Orders</a>
+        <a href="/admin/view-orders?status=Delivered" th:classappend="${status == 'Delivered'} ? 'btn-success' : 'btn-outline-success'" class="btn">Delivered Orders</a>
+    </div>
+
     <div class="order-table">
         <h3>Orders</h3>
         <table class="table table-hover table-bordered">

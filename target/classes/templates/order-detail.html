@@ -66,6 +66,10 @@
         <table class="table table-bordered">
             <tbody>
             <tr>
+                <td><strong>Customer Name</strong></td>
+                <td th:text="${order.user.firstName} + ' ' + ${order.user.lastName}"></td>
+            </tr>
+            <tr>
                 <td><strong>Order ID</strong></td>
                 <td th:text="${order.id}"></td>
             </tr>

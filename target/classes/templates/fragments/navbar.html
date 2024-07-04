@@ -49,14 +49,12 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+                        <a class="nav-link" href="/admin/products">Products</a>
                     </li>
-                    <li th:if="${session.user != null || session.admin != null}" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + (${session.user != null ? session.user.firstName : session.admin.firstName})"></a>
+                    <li th:if="${session.admin != null}" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Hi, ' + ${session.admin.firstName}"></a>
                         <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                            <li th:if="${session.user != null}"><a class="dropdown-item" href="/cart/my-orders">My Orders</a></li>
-                            <li th:if="${session.user != null}"><a class="dropdown-item" href="/settings">Settings</a></li>
-                            <li th:if="${session.admin != null}"><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>

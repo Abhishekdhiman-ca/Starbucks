@@ -37,8 +37,6 @@ public class HomeController {
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
 
-
-
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
         if (cartItems == null) {
             cartItems = (List<CartItem>) cartItemRepository.findAll();
@@ -53,16 +51,24 @@ public class HomeController {
     }
 
     @GetMapping("/products")
-    public String products(@RequestParam(required = false) String category, Model model) {
+    public String products(@RequestParam(required = false) String category, HttpSession session, Model model) {
         List<Product> products;
-        if (category != null) {
-            products = productRepository.findByCategory(category);
-        } else {
+        if (category == null || category.isEmpty()) {
             products = productRepository.findAll();
+        } else {
+            products = productRepository.findByCategory(category);
         }
+
         model.addAttribute("products", products);
-        return "products";
+        model.addAttribute("selectedCategory", category);  // Add the selected category to the model
+
+        if (session.getAttribute("admin") != null) {
+            return "admin-products";
+        } else {
+            return "products";
+        }
     }
+
 
     @GetMapping("/about")
     public String about() {

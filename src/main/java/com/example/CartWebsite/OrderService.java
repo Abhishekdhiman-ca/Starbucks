@@ -14,12 +14,19 @@ public class OrderService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
     public List<Order> getOrdersByUserId(Long userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    public List<Order> getOrdersByStatus(String status) {
+        return orderRepository.findByStatus(status);
     }
 
     public void updateOrderStatus(Long orderId, String status) {
@@ -29,7 +36,10 @@ public class OrderService {
     }
 
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
+        User user = userRepository.findById(order.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+        order.setUser(user);
+        return order;
     }
 
     public List<OrderDetail> getOrderDetailsByOrderId(Long orderId) {

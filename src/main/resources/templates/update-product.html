@@ -8,50 +8,50 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
     <style>
 
-h2, h3 {
-    color: #333333;
-    margin-bottom: 20px;
-}
+        h2, h3 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
 
-.form-label {
-    color: #555555;
-}
+        .form-label {
+            color: #555555;
+        }
 
-.form-control {
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
 
-.form-control:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
 
-.btn {
-    border-radius: 4px;
-}
+        .btn {
+            border-radius: 4px;
+        }
 
-.btn-success, .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
+        .btn-success, .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
-.btn-success:hover, .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-}
+        .btn-success:hover, .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
 
-.table {
-    margin-top: 20px;
-}
+        .table {
+            margin-top: 20px;
+        }
 
-.table th, .table td {
-    vertical-align: middle;
-}
+        .table th, .table td {
+            vertical-align: middle;
+        }
 
-.img-thumbnail {
-    border-radius: 50%;
-}
+        .img-thumbnail {
+            border-radius: 50%;
+        }
 
     </style>
 </head>
@@ -64,15 +64,15 @@ h2, h3 {
     <form action="/admin/update-product" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="productId" class="form-label">Product ID</label>
-            <input type="number" class="form-control" id="productId" name="productId" required>
+            <input type="number" class="form-control" id="productId" name="productId" th:value="${product.id}" readonly>
         </div>
         <div class="mb-3">
             <label for="productName" class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="productName" name="productName" required>
+            <input type="text" class="form-control" id="productName" name="productName" th:value="${product.name}" required>
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">Product Price</label>
-            <input type="number" step="0.01" class="form-control" id="productPrice" name="productPrice" required>
+            <input type="number" step="0.01" class="form-control" id="productPrice" name="productPrice" th:value="${product.price}" required>
         </div>
         <div class="mb-3">
             <label for="productImage" class="form-label">Product Image</label>
@@ -81,15 +81,15 @@ h2, h3 {
         <div class="mb-3">
             <label for="productCategory" class="form-label">Product Category</label>
             <select class="form-control" id="productCategory" name="productCategory" required>
-                <option value="Bagel">Bagel</option>
-                <option value="Drinks">Drinks</option>
-                <option value="Juice">Juice</option>
-                <option value="Bakery">Bakery</option>
+                <option th:value="Bagel" th:selected="${product.category == 'Bagel'}">Bagel</option>
+                <option th:value="Drinks" th:selected="${product.category == 'Drinks'}">Drinks</option>
+                <option th:value="Juice" th:selected="${product.category == 'Juice'}">Juice</option>
+                <option th:value="Bakery" th:selected="${product.category == 'Bakery'}">Bakery</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="productDescription" class="form-label">Product Description</label>
-            <textarea class="form-control" id="productDescription" name="productDescription" rows="3" required></textarea>
+            <textarea class="form-control" id="productDescription" name="productDescription" rows="3" th:text="${product.description}" required></textarea>
         </div>
         <button type="submit" class="btn btn-dark">Update Product</button>
     </form>

@@ -4,10 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -51,25 +48,42 @@ public class AdminController {
     }
 
     @GetMapping("/admin/view-orders")
-    public String viewOrders(HttpSession session, Model model) {
+    public String viewOrders(HttpSession session, Model model, @RequestParam(required = false) String status) {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return "redirect:/login";
+        }
+        List<Order> orders;
+        if (status == null) {
+            orders = orderService.getAllOrders();
+        } else {
+            orders = orderService.getOrdersByStatus(status);
         }
         model.addAttribute("showOrders", true);
-        model.addAttribute("orders", orderService.getAllOrders());
+        model.addAttribute("orders", orders);
+        model.addAttribute("status", status);
         return "admin-dashboard";
     }
-    @GetMapping("/admin/show-all-products")
-    public String showAllProducts(HttpSession session, Model model) {
+
+    @GetMapping("/admin/products")
+    public String showAllProducts(@RequestParam(required = false) String category, HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return "redirect:/login";
         }
-        model.addAttribute("showProducts", true);
-        model.addAttribute("products", productRepository.findAll());
-        return "delete-product";
+
+        List<Product> products;
+        if (category == null || category.isEmpty()) {
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.findByCategory(category);
+        }
+
+        model.addAttribute("products", products);
+        model.addAttribute("selectedCategory", category);  // Add the selected category to the model
+        return "admin-products";
     }
+
 
     @PostMapping("/admin/update-order-status")
     public String updateOrderStatus(@RequestParam Long orderId, @RequestParam String status, HttpSession session, Model model) {
@@ -112,18 +126,18 @@ public class AdminController {
     }
 
     @GetMapping("/admin/update-product")
-    public String updateProductForm(HttpSession session, Model model) {
+    public String updateProductForm(@RequestParam Long id, HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return "redirect:/login";
         }
-        List<Product> products = productRepository.findAll();
-        model.addAttribute("products", products);
+        Product product = productRepository.findById(id).orElse(null);
+        model.addAttribute("product", product);
         return "update-product";
     }
 
     @PostMapping("/admin/update-product")
-    public String updateProduct(@RequestParam Long productId, @RequestParam String productName, @RequestParam double productPrice, @RequestParam MultipartFile productImage, @RequestParam String productCategory, HttpSession session, Model model) throws IOException {
+    public String updateProduct(@RequestParam Long productId, @RequestParam String productName, @RequestParam double productPrice, @RequestParam MultipartFile productImage, @RequestParam String productCategory, @RequestParam String productDescription, HttpSession session, Model model) throws IOException {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return "redirect:/login";
@@ -133,6 +147,7 @@ public class AdminController {
             product.setName(productName);
             product.setPrice(productPrice);
             product.setCategory(productCategory);
+            product.setDescription(productDescription);
             if (!productImage.isEmpty()) {
                 String imageName = productImage.getOriginalFilename();
                 Path path = Paths.get(UPLOAD_DIR + imageName);
@@ -145,13 +160,13 @@ public class AdminController {
     }
 
     @GetMapping("/admin/delete-product")
-    public String deleteProductForm(HttpSession session, Model model) {
+    public String deleteProductForm(@RequestParam Long id, HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return "redirect:/login";
         }
-        List<Product> products = productRepository.findAll();
-        model.addAttribute("products", products);
+        Product product = productRepository.findById(id).orElse(null);
+        model.addAttribute("product", product);
         return "delete-product";
     }
 

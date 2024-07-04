@@ -28,7 +28,7 @@
         }
         .custom-common-theme-button {
             margin-left: 10px;
-             border-radius: 5px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -57,7 +57,7 @@
                 <h5 class="card-title" th:text="${product.name}"></h5>
                 <p class="card-text" th:text="${product.description}"></p>
                 <p class="card-text" th:text="'$' + ${product.price} + ' CAD'"></p>
-                <div th:if="${session.admin == null}" class="action-buttons">
+                <div class="action-buttons">
                     <form action="/cart/add" method="post" style="display: flex; align-items: center;">
                         <input type="hidden" name="item" th:value="${product.name}">
                         <input type="hidden" name="image" th:value="${product.image}">
@@ -70,10 +70,6 @@
                         <button type="submit" class="custom-common-theme-button btn">Add to Cart</button>
                     </form>
                 </div>
-                <div th:if="${session.admin != null}">
-                    <a href="/admin/add-product" class="btn btn-success">Add Product</a>
-                    <a href="/admin/update-product" class="btn btn-primary">Update Product</a>
-                </div>
             </div>
         </div>
     </div>
@@ -82,7 +78,6 @@
 <!-- Include the user footer fragment -->
 <div th:insert="fragments/footer :: user-footer"></div>
 
-<!-- Latest Bootstrap JavaScript -->
 <!-- Latest Bootstrap JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
